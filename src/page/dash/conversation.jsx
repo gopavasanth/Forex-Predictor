@@ -63,8 +63,8 @@ class Conversation extends Component{
     let { inputData={} } = this.state
     let newData = [...this.state.data.chat]
     newData.push({
-      image:'external/img/no_image.jpg',
-      name:'No Name',
+      image:'external/img/Vasanth.jpg',
+      name:'Vasanth',
       position:'right',
       time:'just now',
       message:inputData.message
@@ -146,28 +146,28 @@ const Message = [
     image:'external/img/samples/ryan.png',
     name:'Ryan Gossling',
     time:'September 21, 2013 18:28',
-    message:`Semua berubah semenjaka negara api menyerang.`,
+    message:`Hi Hope you are doing well :).`,
     position:'left'
   },
   {
     image:'external/img/samples/ryan.png',
     name:'Ryan Gossling',
     time:'September 21, 2013 18:28',
-    message:`Kita butuh avatar baru`,
+    message:`How can I help you?`,
     position:'left'
   },
   {
     image:'external/img/samples/emma.png',
     name:'Emma',
     time:'September 21, 2013 18:28',
-    message:`tidak , kita butuh dragon ball ....`,
+    message:`Please let us know your query, Our team will do their best to guide you ....`,
     position:'left'
   },
   {
-    image:'external/img/no_image.jpg',
-    name:'No Name',
+    image:'external/img/Vasanth.jpg',
+    name:'Vasanth',
     time:'September 21, 2013 18:28',
-    message:`Wkwkwkw`,
+    message:`Hi, Thanks for your support`,
     position:'right'
   },
   {
@@ -185,10 +185,10 @@ const Message = [
     position:'left'
   },
   {
-    image:'external/img/no_image.jpg',
+    image:'external/img/Vasanth.jpg',
     name:'No Name',
     time:'September 21, 2013 18:28',
-    message:`pfffttt`,
+    message:`haha`,
     position:'right'
   },
 ]

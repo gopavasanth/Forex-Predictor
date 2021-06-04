@@ -11,6 +11,8 @@ import {
 } from 'src/store/type'
 import MyTable from 'src/component/dashboard/table'
 import {connect} from 'react-redux'
+import {API, API_KEY} from '../../config';
+
 var axios = require('axios');
 
 class Tes extends Component{
@@ -22,7 +24,7 @@ class Tes extends Component{
     }
 
   componentDidMount() {
-      fetch('https://free.currconv.com/api/v7/convert?q=USD_INR,EUR_INR&compact=ultra&apiKey=288cbf1d87dd0e7d91c5')
+      fetch(`${API}?q=USD_INR,EUR_INR&compact=ultra&apiKey=${API_KEY}`)
           .then((response) => response.json())
           .then(res => {
               var USD_INR = res.USD_INR;
@@ -36,12 +38,14 @@ class Tes extends Component{
     var date = new Date();
     date.setDate(date.getDate()-1);
     var month = (date.getMonth()+1)
-    var ydate = date.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + date.getDate();
+    var d = date.getDate()
+    var ydate = date.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (d < 10 ? '0' : '') + d;
     // console.log(ydate);
 
-      fetch(`https://free.currconv.com/api/v7/convert?q=USD_INR,EUR_INR&compact=ultra&date=${ydate}&apiKey=288cbf1d87dd0e7d91c5`)
+      fetch(`${API}?q=USD_INR,EUR_INR&compact=ultra&date=${ydate}&apiKey=${API_KEY}`)
           .then((response) => response.json())
           .then(res => {
+            console.log(ydate, res.USD_INR[ydate]);
               var Y_USD_INR = res.USD_INR[ydate];
               var Y_EUR_INR = res.EUR_INR[ydate];
               this.setState({
