@@ -213,33 +213,33 @@ class Tes extends Component {
       });
   }
 
-  componentWillMount() {
-    this.props.dispatch({
-      type: UPDATE_SIDEBAR_LIST,
-      value: [
-        {
-          iconClassname: "fa fa-dashboard",
-          link: "",
-          name: "Dashboard",
-          itung: 8,
-        },
-        // {iconClassname:'fa fa-table',link:'',name:'Sample 1',
-        //   submenu:[
-        //     {link:'sample.html',name:'Sample 2',pesan:'new'},
-        //     {link:'sample2.html',name:'Sample 3'},
-        //   ]
-        // },
-        {
-          iconClassname: "fa fa-weixin",
-          link: "chat",
-          name: "Support",
-          pesan: { klass: "label-warning", teks: "new" },
-        },
-      ],
-    });
-    const theme = localStorage.getItem("theme") || "light";
-    document.body.setAttribute("theme", theme);
-  }
+  // componentWillMount() {
+  //   this.props.dispatch({
+  //     type: UPDATE_SIDEBAR_LIST,
+  //     value: [
+  //       {
+  //         iconClassname: "fa fa-dashboard",
+  //         link: "",
+  //         name: "Dashboard",
+  //         itung: 8,
+  //       },
+  //       // {iconClassname:'fa fa-table',link:'',name:'Sample 1',
+  //       //   submenu:[
+  //       //     {link:'sample.html',name:'Sample 2',pesan:'new'},
+  //       //     {link:'sample2.html',name:'Sample 3'},
+  //       //   ]
+  //       // },
+  //       {
+  //         iconClassname: "fa fa-weixin",
+  //         link: "chat",
+  //         name: "Support",
+  //         pesan: { klass: "label-warning", teks: "new" },
+  //       },
+  //     ],
+  //   });
+  //   const theme = localStorage.getItem("theme") || "light";
+  //   document.body.setAttribute("theme", theme);
+  // }
 
   onThemeSwitch() {
     const currentTheme = document.body.getAttribute("theme");
@@ -381,8 +381,63 @@ class Tes extends Component {
 
         {listInfo2}
 
-        <AgChartsReact options={this.state.options} />
-
+        <div class="col-xs-12">
+          <div
+            class="col-xs-6"
+            style={{
+              height: "350px",
+              float: "right",
+              paddingBottom: "10px",
+            }}
+          >
+            <AgChartsReact options={this.state.options} />
+          </div>
+          <div
+            class="col-xs-6"
+            style={{
+              height: "350px",
+              float: "right",
+              paddingBottom: "10px",
+            }}
+          >
+            <h2>Hot News</h2>
+            <ul class="l-news">
+              <li class="l-news__content p-news__content">
+                <div class="l-news__content__day p-news__content__day">
+                  2021.06.01
+                </div>
+                <div class="l-news__content__label p-news__content__label">
+                  NEWS
+                </div>
+                <div class="l-news__content__text p-news__content__text">
+                  Worlds Trading Day!
+                </div>
+              </li>
+              <li class="l-news__content p-news__content">
+                <div class="l-news__content__day p-news__content__day">
+                  2021.06.01
+                </div>
+                <div class="l-news__content__label p-news__content__label">
+                  NEWS
+                </div>
+                <div class="l-news__content__text p-news__content__text">
+                  US Govt Changes its policies
+                </div>
+              </li>
+              <li class="l-news__content p-news__content">
+                <div class="l-news__content__day p-news__content__day">
+                  2021.06.01
+                </div>
+                <div class="l-news__content__label p-news__content__label">
+                  NEWS
+                </div>
+                <div class="l-news__content__text p-news__content__text">
+                  USA Supports Israel Economic Trades
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
         <br />
 
         <div className="col-xs-12">

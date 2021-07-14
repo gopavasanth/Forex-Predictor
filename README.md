@@ -1,9 +1,11 @@
 ## How to install
+
 ```javascript
-$ git clone <Link>
-$ cd react-cms
+$ git clone https://github.wdf.sap.corp/I543345/Forex-Forcaster
+$ cd Forex-Forcaster
 $ npm install
 ```
+
 ## Demo
 
 Default data login : <br>
