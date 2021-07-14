@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import Header from "src/component/dashboard/header";
 import Info from "src/component/dashboard/info";
 import { Box, BoxHeader, BoxBody } from "src/component/dashboard/box";
@@ -8,14 +9,19 @@ import MyTable from "src/component/dashboard/table";
 import { connect } from "react-redux";
 import { API, API_KEY } from "../../config";
 
+import { cloneDeep } from "lodash";
+import * as agCharts from "ag-charts-community";
+import { AgChartsReact } from "ag-charts-react";
+
 var axios = require("axios");
+const data = require("./data");
 
 const dataTable = {
   header: ["Hedging ID", "Date", "Company", "Status", "Price", ""],
   body: [
     [
       <button className="link-button a">#5832</button>,
-      "2021/04/08",
+      "2020/04/08",
       <button className="link-button a">Google</button>,
       <span className="label label-warning">On hold</span>,
       <span dangerouslySetInnerHTML={{ __html: "&dollar; 923.93" }} />,
@@ -28,7 +34,7 @@ const dataTable = {
     ],
     [
       <button className="link-button a">#8002</button>,
-      "2021/03/18",
+      "2020/03/18",
       <button className="link-button a">Robert Bosch</button>,
       <span className="label label-success">Completed</span>,
       <span dangerouslySetInnerHTML={{ __html: "&dollar; 825.50" }} />,
@@ -41,7 +47,7 @@ const dataTable = {
     ],
     [
       <button className="link-button a">#2547</button>,
-      "2021/02/04",
+      "2020/02/04",
       <button className="link-button a">TCS</button>,
       <span className="label label-info">Pending</span>,
       <span dangerouslySetInnerHTML={{ __html: "&dollar; 1625.50" }} />,
@@ -54,7 +60,7 @@ const dataTable = {
     ],
     [
       <button className="link-button a">#9274</button>,
-      "2021/02/07",
+      "2020/02/07",
       <button className="link-button a">Infosys</button>,
       <span className="label label-danger">Cancelled</span>,
       <span dangerouslySetInnerHTML={{ __html: "&dollar; 3534" }} />,
@@ -67,7 +73,7 @@ const dataTable = {
     ],
     [
       <button className="link-button a">#8463</button>,
-      "2021/03/15",
+      "2020/03/15",
       <button className="link-button a">MR. Cooper</button>,
       <span className="label label-success">Completed</span>,
       <span dangerouslySetInnerHTML={{ __html: "&dollar; 4199.99" }} />,
@@ -91,6 +97,52 @@ class Tes extends Component {
       Y_USD_INR: 0,
       Y_EUR_INR: 0,
       dataTable: dataTable,
+      options: {
+        autoSize: true,
+        data: data,
+        title: {
+          text: "Currency Forcaster",
+          fontSize: 18,
+        },
+        subtitle: {
+          text: "Forcasted from SAP Solutions",
+        },
+        series: [
+          {
+            type: "line",
+            xKey: "date",
+            yKey: "dollar",
+            stroke: "#01c185",
+            marker: {
+              stroke: "#01c185",
+              fill: "#01c185",
+            },
+          },
+          {
+            type: "line",
+            xKey: "date",
+            yKey: "euro",
+            stroke: "#000000",
+            marker: {
+              stroke: "#000000",
+              fill: "#000000",
+            },
+          },
+        ],
+        axes: [
+          {
+            position: "bottom",
+            type: "time",
+            tick: { count: agCharts.time.month.every(2) },
+            title: { text: "Date" },
+          },
+          {
+            position: "left",
+            type: "number",
+            title: { text: "Price in pence" },
+          },
+        ],
+      },
     };
 
     this.addItem = this.addItem.bind(this);
@@ -328,6 +380,11 @@ class Tes extends Component {
         {listInfo}
 
         {listInfo2}
+
+        <AgChartsReact options={this.state.options} />
+
+        <br />
+
         <div className="col-xs-12">
           <Box>
             <BoxHeader>
