@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 import { render } from "react-dom";
 import Header from "src/component/dashboard/header";
@@ -213,33 +213,33 @@ class Tes extends Component {
       });
   }
 
-  // componentWillMount() {
-  //   this.props.dispatch({
-  //     type: UPDATE_SIDEBAR_LIST,
-  //     value: [
-  //       {
-  //         iconClassname: "fa fa-dashboard",
-  //         link: "",
-  //         name: "Dashboard",
-  //         itung: 8,
-  //       },
-  //       // {iconClassname:'fa fa-table',link:'',name:'Sample 1',
-  //       //   submenu:[
-  //       //     {link:'sample.html',name:'Sample 2',pesan:'new'},
-  //       //     {link:'sample2.html',name:'Sample 3'},
-  //       //   ]
-  //       // },
-  //       {
-  //         iconClassname: "fa fa-weixin",
-  //         link: "chat",
-  //         name: "Support",
-  //         pesan: { klass: "label-warning", teks: "new" },
-  //       },
-  //     ],
-  //   });
-  //   const theme = localStorage.getItem("theme") || "light";
-  //   document.body.setAttribute("theme", theme);
-  // }
+  componentWillMount() {
+    this.props.dispatch({
+      type: UPDATE_SIDEBAR_LIST,
+      value: [
+        {
+          iconClassname: "fa fa-dashboard",
+          link: "",
+          name: "Dashboard",
+          itung: 8,
+        },
+        // {iconClassname:'fa fa-table',link:'',name:'Sample 1',
+        //   submenu:[
+        //     {link:'sample.html',name:'Sample 2',pesan:'new'},
+        //     {link:'sample2.html',name:'Sample 3'},
+        //   ]
+        // },
+        {
+          iconClassname: "fa fa-weixin",
+          link: "chat",
+          name: "Support",
+          pesan: { klass: "label-warning", teks: "new" },
+        },
+      ],
+    });
+    const theme = localStorage.getItem("theme") || "light";
+    document.body.setAttribute("theme", theme);
+  }
 
   onThemeSwitch() {
     const currentTheme = document.body.getAttribute("theme");
@@ -440,6 +440,45 @@ class Tes extends Component {
         </div>
         <br />
 
+        <div className="col-xs-12">
+          <Box>
+            <BoxHeader>
+              <h2 className="pull-left" style={{ padding: "5px" }}>
+                Predict
+              </h2>
+              <hr />
+              <BoxBody style={{ padding: "5px" }}>
+                <form class="needs-validation" novalidate>
+                  <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                      <select
+                        className="custom-select"
+                        style={{ padding: "5px" }}
+                      >
+                        <option selected>Base currency</option>
+                        <option value="1">Dollar</option>
+                        <option value="2">Euro</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                      <select
+                        className="custom-select"
+                        style={{ padding: "5px" }}
+                      >
+                        <option selected>Target currency</option>
+                        <option value="1">INR</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2 mb-3"></div>
+                    <button className="btn btn-primary">
+                      <i className="fa" /> Predict
+                    </button>
+                  </div>
+                </form>
+              </BoxBody>
+            </BoxHeader>
+          </Box>
+        </div>
         <div className="col-xs-12">
           <Box>
             <BoxHeader>
