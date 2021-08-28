@@ -87,11 +87,72 @@ const dataTable = {
   ],
 };
 
+function Text(props) {
+  var style = {
+    paddingTop: 5,
+    margin: 5,
+  };
+  return (
+    <div>
+      <div style={style}> {props.label} </div>
+      <input
+        type="text"
+        name={props.name}
+        style={style}
+        value={props.labelInputText}
+        onChange={props.changeHandler}
+      />
+    </div>
+  );
+}
+
+function TableFormList(props) {
+  return (
+    <table>
+      <tr>
+        {props.headers.map((items, index) => (
+          <th key={index}>{items}</th>
+        ))}
+      </tr>
+      <tbody>
+        {props.formElements.map((items, index) => (
+          <tr key={index}>
+            <button className="link-button a">{items.id}</button>, {items.date},
+            <button className="link-button a">{items.company}</button>,
+            <span className="label label-warning">{items.company}</span>,
+            <span
+              dangerouslySetInnerHTML={{ __html: `&dollar; ${items.price}` }}
+            />
+            ,
+            <button className="link-button a">
+              <span className="fa-stack">
+                <i className="fa fa-square fa-external-link fa-stack-2x" />
+                <i className="fa fa-external-link fa-stack-1x fa-inverse" />
+              </span>
+            </button>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
 class Tes extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: 5832,
+      date: "20/02/2021",
+      company: "New Company",
+      status: "Pending",
+      price: 100,
+      items: [
+        [5832, "2020/04/08", "Google", "On hold", 923.93],
+        [5832, "2020/04/08", "Google", "On hold", 923.93],
+        [5832, "2020/04/08", "Google", "On hold", 923.93],
+        [5832, "2020/04/08", "Google", "On hold", 923.93],
+      ],
       USD_INR: 0,
       EUR_INR: 0,
       Y_USD_INR: 0,
@@ -147,12 +208,35 @@ class Tes extends Component {
 
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
+  }
+
+  changeHandler(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   addItem(dataTable) {
-    this.setState((prevState) => ({
-      dataTable: [...prevState.dataTable, dataTable],
-    }));
+    var id = this.state.id;
+    var date = this.state.date;
+    var company = this.state.company;
+    var status = this.state.status;
+    var price = this.state.price;
+    var elements = this.state.items.slice();
+    elements.push({
+      id: id,
+      date: date,
+      company: company,
+      status: status,
+      price: price,
+    });
+    this.setState({
+      items: elements,
+      id: id + 1,
+      date: "",
+      company: "New Company",
+      status: "Pending",
+      price: "",
+    });
   }
 
   deleteItem(item) {
@@ -380,6 +464,39 @@ class Tes extends Component {
         {listInfo}
 
         {listInfo2}
+        <div>
+          <Text
+            label="date"
+            name="date"
+            labelInputText={this.state.date}
+            changeHandler={this.changeHandler}
+          />
+          <Text
+            label="Company"
+            name="company"
+            labelInputText={this.state.company}
+            changeHandler={this.changeHandler}
+          />
+          <Text
+            label="status"
+            name="status"
+            labelInputText={this.state.status}
+            changeHandler={this.changeHandler}
+          />
+          <Text
+            label="price"
+            name="price"
+            labelInputText={this.state.price}
+            changeHandler={this.changeHandler}
+          />
+          <input type="submit" value="submit" onClick={() => this.addItem()} />
+          <div>
+            <TableFormList
+              headers={["ID", "Date", "Company", "Status", "Price"]}
+              formElements={this.state.items}
+            />
+          </div>
+        </div>
 
         <div class="col-xs-12">
           <div
