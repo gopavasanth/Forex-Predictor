@@ -4,7 +4,7 @@ export default function(props) {
   return (
     <footer id="footer-bar" className="row">
       <p id="footer-copyright" className="col-xs-12">
-        &copy; 2020{" "}
+        &copy; 2021{" "}
         <a href="" target="_blank" rel="noopener noreferrer">
           Innovation challenge
         </a>

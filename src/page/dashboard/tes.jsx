@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import { Col, Row, Form, InputGroup, FormControl, Button, Dropdown } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import { render } from "react-dom";
 import Header from "src/component/dashboard/header";
@@ -12,7 +13,7 @@ import { API, API_KEY } from "../../config";
 import { cloneDeep } from "lodash";
 import * as agCharts from "ag-charts-community";
 import { AgChartsReact } from "ag-charts-react";
-
+import Modal from "./Modal";
 var axios = require("axios");
 const data = require("./data");
 
@@ -115,13 +116,13 @@ function TableFormList(props) {
         ))}
       </tr>
       <tbody>
-        {props.formElements.map((items, index) => (
+        {props.formElements.map((item, index) => (
           <tr key={index}>
-            <button className="link-button a">{items.id}</button>, {items.date},
-            <button className="link-button a">{items.company}</button>,
-            <span className="label label-warning">{items.company}</span>,
+            <button className="link-button a">{item.id}</button>, {item.date},
+            <button className="link-button a">{item.company}</button>,
+            <span className="label label-warning">{item.company}</span>,
             <span
-              dangerouslySetInnerHTML={{ __html: `&dollar; ${items.price}` }}
+              dangerouslySetInnerHTML={{ __html: `&dollar; ${item.price}` }}
             />
             ,
             <button className="link-button a">
@@ -142,6 +143,7 @@ class Tes extends Component {
     super(props);
 
     this.state = {
+      modal: false,
       id: 5832,
       date: "20/02/2021",
       company: "New Company",
@@ -252,7 +254,7 @@ class Tes extends Component {
   getData() {
     console.log(dataTable);
   }
-
+  
   componentDidMount() {
     this.getData();
     console.log(this.state.dataTable);
@@ -295,6 +297,45 @@ class Tes extends Component {
           Y_EUR_INR: Y_EUR_INR,
         });
       });
+  }
+
+  componentWillMount() {
+    this.props.dispatch({
+      type: UPDATE_SIDEBAR_LIST,
+      value: [
+        {
+          iconClassname: "fa fa-dashboard",
+          link: "",
+          name: "Dashboard",
+          itung: 8,
+        },
+        // {iconClassname:'fa fa-table',link:'',name:'Sample 1',
+        //   submenu:[
+        //     {link:'sample.html',name:'Sample 2',pesan:'new'},
+        //     {link:'sample2.html',name:'Sample 3'},
+        //   ]
+        // },
+        {
+          iconClassname: "fa fa-weixin",
+          link: "chat",
+          name: "Support",
+          pesan: { klass: "label-warning", teks: "new" },
+        },
+      ],
+    });
+    const theme = localStorage.getItem("theme") || "light";
+    document.body.setAttribute("theme", theme);
+  }
+
+  modalOpen() {
+    this.setState({ modal: true });
+  }
+
+  modalClose() {
+    this.setState({
+      modalInputName: "",
+      modal: false,
+    });
   }
 
   componentWillMount() {
@@ -464,7 +505,14 @@ class Tes extends Component {
         {listInfo}
 
         {listInfo2}
-        <div>
+
+        {/* <div
+          style={{
+            padding: "1px",
+            alignContent: "center",
+            border: "1px solid black",
+          }}
+        >
           <Text
             label="date"
             name="date"
@@ -492,12 +540,14 @@ class Tes extends Component {
           <input type="submit" value="submit" onClick={() => this.addItem()} />
           <div>
             <TableFormList
-              headers={["ID", "Date", "Company", "Status", "Price"]}
+              className="table table-hover"
+              style={{ padding: "1px" }}
+              headers={["ID", " Date", " Company", " Status", " Price"]}
               formElements={this.state.items}
             />
           </div>
         </div>
-
+ */}
         <div class="col-xs-12">
           <div
             class="col-xs-6"
@@ -586,24 +636,42 @@ class Tes extends Component {
                         <option value="1">INR</option>
                       </select>
                     </div>
-                    <div class="col-md-2 mb-3"></div>
-                    <button className="btn btn-primary">
-                      <i className="fa" /> Predict
-                    </button>
+                    <div class="input-group col-md-2 mb-4">
+                    <input type="date" id="start" name="trip-start"
+                        min="2021-09-01" max="2021-10-31"/>
+                    </div>
+                    <br />
+                    <div class="col-md-2 mb-4">
+                      <button className="btn btn-primary">
+                        <i className="fa" /> Predict
+                      </button>
+                    </div>
                   </div>
                 </form>
               </BoxBody>
             </BoxHeader>
           </Box>
         </div>
+
         <div className="col-xs-12">
           <Box>
             <BoxHeader>
               <h2 className="pull-left">Transactions</h2>
               <div className="filter-block pull-right">
-                <button className="btn btn-primary">
+                <button
+                  className="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  onClick={(e) => this.modalOpen(e)}
+                >
                   <i className="fa fa-plus" /> New Transaction
                 </button>
+                <Modal
+                  show={this.state.modal}
+                  handleClose={(e) => this.modalClose(e)}
+                >
+                  <h2>Hello Modal</h2>
+                </Modal>
                 <div className="form-group pull-left">
                   <input
                     type="text"
