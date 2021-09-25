@@ -506,11 +506,10 @@ class Tes extends Component {
 
         {listInfo2}
 
-        {/* <div
+        <div
           style={{
             padding: "1px",
             alignContent: "center",
-            border: "1px solid black",
           }}
         >
           <Text
@@ -547,7 +546,7 @@ class Tes extends Component {
             />
           </div>
         </div>
- */}
+
         <div class="col-xs-12">
           <div
             class="col-xs-6"
