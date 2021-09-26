@@ -10,6 +10,7 @@ const MyTable = (props)=>{
   })
   if( body.length > 0){
     table.body = body.map((val,k)=>{
+      console.log(val)
       return(
         <tr key={`tr-${k}`} >{val.map((val2,kk)=>{
           return <td key={`td-${k}-${kk}`} >{val2}</td>

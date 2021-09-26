@@ -9,6 +9,7 @@ import { UPDATE_SIDEBAR_LIST } from "src/store/type";
 import MyTable from "src/component/dashboard/table";
 import { connect } from "react-redux";
 import { API, API_KEY } from "../../config";
+import Popup from 'reactjs-popup';
 
 import { cloneDeep } from "lodash";
 import * as agCharts from "ag-charts-community";
@@ -16,77 +17,6 @@ import { AgChartsReact } from "ag-charts-react";
 import Modal from "./Modal";
 var axios = require("axios");
 const data = require("./data");
-
-const dataTable = {
-  header: ["Hedging ID", "Date", "Company", "Status", "Price", ""],
-  body: [
-    [
-      <button className="link-button a">#5832</button>,
-      "2020/04/08",
-      <button className="link-button a">Google</button>,
-      <span className="label label-warning">On hold</span>,
-      <span dangerouslySetInnerHTML={{ __html: "&dollar; 923.93" }} />,
-      <button className="link-button a">
-        <span className="fa-stack">
-          <i className="fa fa-square fa-external-link fa-stack-2x" />
-          <i className="fa fa-external-link fa-stack-1x fa-inverse" />
-        </span>
-      </button>,
-    ],
-    [
-      <button className="link-button a">#8002</button>,
-      "2020/03/18",
-      <button className="link-button a">Robert Bosch</button>,
-      <span className="label label-success">Completed</span>,
-      <span dangerouslySetInnerHTML={{ __html: "&dollar; 825.50" }} />,
-      <button className="link-button a">
-        <span className="fa-stack">
-          <i className="fa fa-square fa-external-link fa-stack-2x" />
-          <i className="fa fa-external-link fa-stack-1x fa-inverse" />
-        </span>
-      </button>,
-    ],
-    [
-      <button className="link-button a">#2547</button>,
-      "2020/02/04",
-      <button className="link-button a">TCS</button>,
-      <span className="label label-info">Pending</span>,
-      <span dangerouslySetInnerHTML={{ __html: "&dollar; 1625.50" }} />,
-      <button className="link-button a">
-        <span className="fa-stack">
-          <i className="fa fa-square fa-external-link fa-stack-2x" />
-          <i className="fa fa-external-link fa-stack-1x fa-inverse" />
-        </span>
-      </button>,
-    ],
-    [
-      <button className="link-button a">#9274</button>,
-      "2020/02/07",
-      <button className="link-button a">Infosys</button>,
-      <span className="label label-danger">Cancelled</span>,
-      <span dangerouslySetInnerHTML={{ __html: "&dollar; 3534" }} />,
-      <button className="link-button a">
-        <span className="fa-stack">
-          <i className="fa fa-square fa-external-link fa-stack-2x" />
-          <i className="fa fa-external-link fa-stack-1x fa-inverse" />
-        </span>
-      </button>,
-    ],
-    [
-      <button className="link-button a">#8463</button>,
-      "2020/03/15",
-      <button className="link-button a">MR. Cooper</button>,
-      <span className="label label-success">Completed</span>,
-      <span dangerouslySetInnerHTML={{ __html: "&dollar; 4199.99" }} />,
-      <button className="link-button a">
-        <span className="fa-stack">
-          <i className="fa fa-square fa-external-link fa-stack-2x" />
-          <i className="fa fa-external-link fa-stack-1x fa-inverse" />
-        </span>
-      </button>,
-    ],
-  ],
-};
 
 function Text(props) {
   var style = {
@@ -107,59 +37,89 @@ function Text(props) {
   );
 }
 
-function TableFormList(props) {
-  return (
-    <table>
-      <tr>
-        {props.headers.map((items, index) => (
-          <th key={index}>{items}</th>
-        ))}
-      </tr>
-      <tbody>
-        {props.formElements.map((item, index) => (
-          <tr key={index}>
-            <button className="link-button a">{item.id}</button>, {item.date},
-            <button className="link-button a">{item.company}</button>,
-            <span className="label label-warning">{item.company}</span>,
-            <span
-              dangerouslySetInnerHTML={{ __html: `&dollar; ${item.price}` }}
-            />
-            ,
-            <button className="link-button a">
-              <span className="fa-stack">
-                <i className="fa fa-square fa-external-link fa-stack-2x" />
-                <i className="fa fa-external-link fa-stack-1x fa-inverse" />
-              </span>
-            </button>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
 class Tes extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       modal: false,
-      id: 5832,
+      id: 8464,
       date: "20/02/2021",
       company: "New Company",
       status: "Pending",
       price: 100,
-      items: [
-        [5832, "2020/04/08", "Google", "On hold", 923.93],
-        [5832, "2020/04/08", "Google", "On hold", 923.93],
-        [5832, "2020/04/08", "Google", "On hold", 923.93],
-        [5832, "2020/04/08", "Google", "On hold", 923.93],
-      ],
+      predict: 0,
       USD_INR: 0,
       EUR_INR: 0,
       Y_USD_INR: 0,
       Y_EUR_INR: 0,
-      dataTable: dataTable,
+      dataTable: {
+        header: ["Hedging ID", "Date", "Company", "Status", "Price", ""],
+        body: [[
+        <button className="link-button a">#5832</button>,
+        "2020/04/08",
+        <button className="link-button a">Google</button>,
+        <span className="label label-warning">On hold</span>,
+        <span dangerouslySetInnerHTML={{ __html: "&dollar; 923.93" }} />,
+        <button className="link-button a">
+          <span className="fa-stack">
+            <i className="fa fa-square fa-external-link fa-stack-2x" />
+            <i className="fa fa-external-link fa-stack-1x fa-inverse" />
+          </span>
+        </button>,
+      ],
+      [
+        <button className="link-button a">#8002</button>,
+        "2020/03/18",
+        <button className="link-button a">Robert Bosch</button>,
+        <span className="label label-success">Completed</span>,
+        <span dangerouslySetInnerHTML={{ __html: "&dollar; 825.50" }} />,
+        <button className="link-button a">
+          <span className="fa-stack">
+            <i className="fa fa-square fa-external-link fa-stack-2x" />
+            <i className="fa fa-external-link fa-stack-1x fa-inverse" />
+          </span>
+        </button>,
+      ],
+      [
+        <button className="link-button a">#2547</button>,
+        "2020/02/04",
+        <button className="link-button a">TCS</button>,
+        <span className="label label-info">Pending</span>,
+        <span dangerouslySetInnerHTML={{ __html: "&dollar; 1625.50" }} />,
+        <button className="link-button a">
+          <span className="fa-stack">
+            <i className="fa fa-square fa-external-link fa-stack-2x" />
+            <i className="fa fa-external-link fa-stack-1x fa-inverse" />
+          </span>
+        </button>,
+      ],
+      [
+        <button className="link-button a">#9274</button>,
+        "2020/02/07",
+        <button className="link-button a">Infosys</button>,
+        <span className="label label-danger">Cancelled</span>,
+        <span dangerouslySetInnerHTML={{ __html: "&dollar; 3534" }} />,
+        <button className="link-button a">
+          <span className="fa-stack">
+            <i className="fa fa-square fa-external-link fa-stack-2x" />
+            <i className="fa fa-external-link fa-stack-1x fa-inverse" />
+          </span>
+        </button>,
+      ],
+      [
+        <button className="link-button a">#8463</button>,
+        "2020/03/15",
+        <button className="link-button a">MR. Cooper</button>,
+        <span className="label label-success">Completed</span>,
+        <span dangerouslySetInnerHTML={{ __html: "&dollar; 4199.99" }} />,
+        <button className="link-button a">
+          <span className="fa-stack">
+            <i className="fa fa-square fa-external-link fa-stack-2x" />
+            <i className="fa fa-external-link fa-stack-1x fa-inverse" />
+          </span>
+        </button>,
+      ]]},
       options: {
         autoSize: true,
         data: data,
@@ -223,21 +183,27 @@ class Tes extends Component {
     var company = this.state.company;
     var status = this.state.status;
     var price = this.state.price;
-    var elements = this.state.items.slice();
-    elements.push({
-      id: id,
-      date: date,
-      company: company,
-      status: status,
-      price: price,
-    });
+    var tempHeaders = this.state.dataTable.header;
+    var elements = this.state.dataTable.body;
+    elements.push([
+      <button className="link-button a">#{id}</button>,
+      "2020/03/15",
+      <button className="link-button a">{ company }</button>,
+      <span className="label label-info">{status}</span>,
+      <span dangerouslySetInnerHTML={{ __html: `&dollar; ${price}` }} />,
+      <button className="link-button a">
+        <span className="fa-stack">
+          <i className="fa fa-square fa-external-link fa-stack-2x" />
+          <i className="fa fa-external-link fa-stack-1x fa-inverse" />
+        </span>
+      </button>,
+    ]);
+    console.log(elements)
     this.setState({
-      items: elements,
-      id: id + 1,
-      date: "",
-      company: "New Company",
-      status: "Pending",
-      price: "",
+      dataTable: {
+        header: tempHeaders,
+        body: elements
+      }
     });
   }
 
@@ -252,12 +218,22 @@ class Tes extends Component {
   }
 
   getData() {
-    console.log(dataTable);
+    // console.log(dataTable);
+  }
+
+  mockPrediction() {
+    console.log(document.getElementById("custom-select"))
+    var e = document.getElementById("custom-select");
+    var strUser = e.value;
+    if (strUser === "Dollar")
+      this.setState({ predict: this.state.USD_INR - 0.50 })
+    else if (strUser === "Euro")
+      this.setState({ predict: this.state.EUR_INR - 0.40 })
   }
   
   componentDidMount() {
     this.getData();
-    console.log(this.state.dataTable);
+    // console.log(this.state.dataTable);
 
     fetch(`${API}?q=USD_INR,EUR_INR&compact=ultra&apiKey=${API_KEY}`)
       .then((response) => response.json())
@@ -492,10 +468,11 @@ class Tes extends Component {
         </div>
       );
     });
-
+    
     return (
       <div>
         <Header title="Dashboard" />
+        
         {/* <div>
             <button className="btn btn-primary dark-theme-switch float-right" style={{padding: "1px", float: "center"}}
             onClick={this.onThemeSwitch.bind(this)}>Dark Theme </button>
@@ -505,47 +482,6 @@ class Tes extends Component {
         {listInfo}
 
         {listInfo2}
-
-        <div
-          style={{
-            padding: "1px",
-            alignContent: "center",
-          }}
-        >
-          <Text
-            label="date"
-            name="date"
-            labelInputText={this.state.date}
-            changeHandler={this.changeHandler}
-          />
-          <Text
-            label="Company"
-            name="company"
-            labelInputText={this.state.company}
-            changeHandler={this.changeHandler}
-          />
-          <Text
-            label="status"
-            name="status"
-            labelInputText={this.state.status}
-            changeHandler={this.changeHandler}
-          />
-          <Text
-            label="price"
-            name="price"
-            labelInputText={this.state.price}
-            changeHandler={this.changeHandler}
-          />
-          <input type="submit" value="submit" onClick={() => this.addItem()} />
-          <div>
-            <TableFormList
-              className="table table-hover"
-              style={{ padding: "1px" }}
-              headers={["ID", " Date", " Company", " Status", " Price"]}
-              formElements={this.state.items}
-            />
-          </div>
-        </div>
 
         <div class="col-xs-12">
           <div
@@ -619,11 +555,12 @@ class Tes extends Component {
                     <div class="col-md-2 mb-3">
                       <select
                         className="custom-select"
+                        id="custom-select"
                         style={{ padding: "5px" }}
                       >
                         <option selected>Base currency</option>
-                        <option value="1">Dollar</option>
-                        <option value="2">Euro</option>
+                        <option value="Dollar">Dollar</option>
+                        <option value="Euro">Euro</option>
                       </select>
                     </div>
                     <div class="col-md-2 mb-3">
@@ -636,14 +573,15 @@ class Tes extends Component {
                       </select>
                     </div>
                     <div class="input-group col-md-2 mb-4">
-                    <input type="date" id="start" name="trip-start"
+                    <input className="inline-input" type="date" id="start" name="trip-start"
                         min="2021-09-01" max="2021-10-31"/>
                     </div>
+                    <p class="col-md-2 mb-5">{ this.state.predict }</p>
                     <br />
                     <div class="col-md-2 mb-4">
-                      <button className="btn btn-primary">
+                      <div onClick={() => this.mockPrediction()} className="btn btn-primary">
                         <i className="fa" /> Predict
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -657,14 +595,52 @@ class Tes extends Component {
             <BoxHeader>
               <h2 className="pull-left">Transactions</h2>
               <div className="filter-block pull-right">
-                <button
-                  className="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                  onClick={(e) => this.modalOpen(e)}
-                >
-                  <i className="fa fa-plus" /> New Transaction
-                </button>
+                <Popup trigger={
+                  <button
+                    className="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    onClick={(e) => this.modalOpen(e)}
+                  >
+                    <i className="fa fa-plus" /> New Transaction
+                  </button>
+                } position="left center">
+                    <div className="popup-form">
+                      <div
+                        style={{
+                          padding: "1px",
+                          alignContent: "center",
+                        }}
+                      >
+                        <h5>Enter the transaction details</h5>
+                        <Text
+                          label="date"
+                          name="date"
+                          labelInputText={this.state.date}
+                          changeHandler={this.changeHandler}
+                        />
+                        <Text
+                          label="Company"
+                          name="company"
+                          labelInputText={this.state.company}
+                          changeHandler={this.changeHandler}
+                        />
+                        <Text
+                          label="status"
+                          name="status"
+                          labelInputText={this.state.status}
+                          changeHandler={this.changeHandler}
+                        />
+                        <Text
+                          label="price"
+                          name="price"
+                          labelInputText={this.state.price}
+                          changeHandler={this.changeHandler}
+                        />
+                        <input className="submitButton" type="submit" value="submit" onClick={() => this.addItem()} />
+                      </div>
+                    </div>
+                </Popup>
                 <Modal
                   show={this.state.modal}
                   handleClose={(e) => this.modalClose(e)}

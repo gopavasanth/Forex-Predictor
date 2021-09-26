@@ -74,3 +74,23 @@
   border-radius: 0 100% 100% 0;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
+.popup-form {
+  position: fixed;
+  width: 50%;
+  height: 60%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: white;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submitButton {
+  width: 100%;
+}
