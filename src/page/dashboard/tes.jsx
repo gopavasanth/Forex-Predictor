@@ -318,33 +318,33 @@ class Tes extends Component {
       });
   }
 
-  componentWillMount() {
-    this.props.dispatch({
-      type: UPDATE_SIDEBAR_LIST,
-      value: [
-        {
-          iconClassname: "fa fa-dashboard",
-          link: "",
-          name: "Dashboard",
-          itung: 8,
-        },
-        // {iconClassname:'fa fa-table',link:'',name:'Sample 1',
-        //   submenu:[
-        //     {link:'sample.html',name:'Sample 2',pesan:'new'},
-        //     {link:'sample2.html',name:'Sample 3'},
-        //   ]
-        // },
-        {
-          iconClassname: "fa fa-weixin",
-          link: "chat",
-          name: "Support",
-          pesan: { klass: "label-warning", teks: "new" },
-        },
-      ],
-    });
-    const theme = localStorage.getItem("theme") || "light";
-    document.body.setAttribute("theme", theme);
-  }
+  // componentWillMount() {
+  //   this.props.dispatch({
+  //     type: UPDATE_SIDEBAR_LIST,
+  //     value: [
+  //       {
+  //         iconClassname: "fa fa-dashboard",
+  //         link: "",
+  //         name: "Dashboard",
+  //         itung: 8,
+  //       },
+  //       // {iconClassname:'fa fa-table',link:'',name:'Sample 1',
+  //       //   submenu:[
+  //       //     {link:'sample.html',name:'Sample 2',pesan:'new'},
+  //       //     {link:'sample2.html',name:'Sample 3'},
+  //       //   ]
+  //       // },
+  //       {
+  //         iconClassname: "fa fa-weixin",
+  //         link: "chat",
+  //         name: "Support",
+  //         pesan: { klass: "label-warning", teks: "new" },
+  //       },
+  //     ],
+  //   });
+  //   const theme = localStorage.getItem("theme") || "light";
+  //   document.body.setAttribute("theme", theme);
+  // }
 
   modalOpen() {
     this.setState({ modal: true });
@@ -549,21 +549,21 @@ class Tes extends Component {
             <ul class="l-news">
               <li class="l-news__content p-news__content">
                 <div class="l-news__content__day p-news__content__day">
-                  2021.06.01
+                  2021.09.28
                 </div>
                 <div class="l-news__content__label p-news__content__label">
-                  NEWS
+                <a href="https://www.dailyfx.com/forex/fundamental/forecast/weekly/eur/2021/09/26/Euro-Forecast-Limited-EURUSD-Bounce-Could-Follow-German-Election-Results.html" class="news">NEWS </a>
                 </div>
                 <div class="l-news__content__text p-news__content__text">
-                  Worlds Trading Day!
+                EUR/USD Bounce Could Follow German Election Results
                 </div>
               </li>
               <li class="l-news__content p-news__content">
                 <div class="l-news__content__day p-news__content__day">
-                  2021.06.01
+                  2021.09.28
                 </div>
                 <div class="l-news__content__label p-news__content__label">
-                  NEWS
+                <a href="#" class="news">NEWS </a>
                 </div>
                 <div class="l-news__content__text p-news__content__text">
                   US Govt Changes its policies
@@ -571,10 +571,10 @@ class Tes extends Component {
               </li>
               <li class="l-news__content p-news__content">
                 <div class="l-news__content__day p-news__content__day">
-                  2021.06.01
+                  2021.09.28
                 </div>
                 <div class="l-news__content__label p-news__content__label">
-                  NEWS
+                <a href="#" class="news">NEWS </a>
                 </div>
                 <div class="l-news__content__text p-news__content__text">
                   USA Supports Israel Economic Trades
