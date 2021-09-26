@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forex-forcaster
+spec:
+  selector:
+    matchLabels:
+      templatename: forex-forcaster
+  template:
+    metadata:
+      labels:
+        templatename: forex-forcaster
+    spec:
+      containers:
+        - image: gopavasanth/forex-forcaster
+          name: forex-forcaster
