@@ -18,6 +18,25 @@ import Modal from "./Modal";
 var axios = require("axios");
 const data = require("./data");
 
+function TextDate(props) {
+  var style = {
+    paddingTop: 5,
+    margin: 5,
+  };
+  return (
+    <div>
+      <div style={style}> {props.label} </div>
+      <input
+        type="date"
+        name={props.name}
+        style={style}
+        value={props.labelInputText}
+        onChange={props.changeHandler}
+      />
+    </div>
+  );
+}
+
 function Text(props) {
   var style = {
     paddingTop: 5,
@@ -37,18 +56,37 @@ function Text(props) {
   );
 }
 
+function InputNumber (props) {
+  var style = {
+    paddingTop: 5,
+    margin: 5,
+  };
+  return (
+    <div>
+      <div style={style}> {props.label} </div>
+      <input
+        type="number"
+        name={props.name}
+        style={style}
+        value={props.labelInputText}
+        onChange={props.changeHandler}
+      />
+    </div>
+  );
+}
+
 class Tes extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       modal: false,
-      id: 8464,
+      id: 8555,
       date: "20/02/2021",
       company: "New Company",
       status: "Pending",
       price: 100,
-      predict: 0,
+      predict: null,
       USD_INR: 0,
       EUR_INR: 0,
       Y_USD_INR: 0,
@@ -177,6 +215,10 @@ class Tes extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  handleChange(e) {
+    this.setState({ status: e.target.value });
+  }
+
   addItem(dataTable) {
     var id = this.state.id;
     var date = this.state.date;
@@ -186,11 +228,11 @@ class Tes extends Component {
     var tempHeaders = this.state.dataTable.header;
     var elements = this.state.dataTable.body;
     elements.push([
-      <button className="link-button a">#{id}</button>,
-      "2020/03/15",
+      <button className="link-button a">#{this.state.id + 1}</button>,
+      `${this.state.date}`,
       <button className="link-button a">{ company }</button>,
-      <span className="label label-info">{status}</span>,
-      <span dangerouslySetInnerHTML={{ __html: `&dollar; ${price}` }} />,
+      <span className="label label-info">{this.state.status}</span>,
+      <span dangerouslySetInnerHTML={{ __html: `&dollar; ${this.state.price}` }} />,
       <button className="link-button a">
         <span className="fa-stack">
           <i className="fa fa-square fa-external-link fa-stack-2x" />
@@ -200,6 +242,7 @@ class Tes extends Component {
     ]);
     console.log(elements)
     this.setState({
+      id : id+1,
       dataTable: {
         header: tempHeaders,
         body: elements
@@ -226,9 +269,9 @@ class Tes extends Component {
     var e = document.getElementById("custom-select");
     var strUser = e.value;
     if (strUser === "Dollar")
-      this.setState({ predict: this.state.USD_INR - 0.50 })
+      this.setState({ predict: (this.state.USD_INR - (Math.random()).toFixed(2))})
     else if (strUser === "Euro")
-      this.setState({ predict: this.state.EUR_INR - 0.40 })
+      this.setState({ predict: (this.state.EUR_INR - (Math.random()).toFixed(2))})
   }
   
   componentDidMount() {
@@ -576,7 +619,7 @@ class Tes extends Component {
                     <input className="inline-input" type="date" id="start" name="trip-start"
                         min="2021-09-01" max="2021-10-31"/>
                     </div>
-                    <p class="col-md-2 mb-5">{ this.state.predict }</p>
+                    <h1 class="col-md-2 mb-5" style={{float: "right"}}>{ this.state.predict }</h1>
                     <br />
                     <div class="col-md-2 mb-4">
                       <div onClick={() => this.mockPrediction()} className="btn btn-primary">
@@ -606,15 +649,16 @@ class Tes extends Component {
                   </button>
                 } position="left center">
                     <div className="popup-form">
+                      <div class="form-style-8">
                       <div
                         style={{
                           padding: "1px",
                           alignContent: "center",
                         }}
                       >
-                        <h5>Enter the transaction details</h5>
-                        <Text
-                          label="date"
+                        <h3><b>Enter the transaction details</b></h3>
+                        <TextDate
+                          label="Date"
                           name="date"
                           labelInputText={this.state.date}
                           changeHandler={this.changeHandler}
@@ -625,19 +669,32 @@ class Tes extends Component {
                           labelInputText={this.state.company}
                           changeHandler={this.changeHandler}
                         />
-                        <Text
-                          label="status"
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                              </div>
+                              <select class="custom-select" name="status"  value={this.state.status} changeHandler={this.changeHandler} id="inputGroupSelect01">
+                                <option selected>Status...</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                                <option value="On hold">On hold</option>
+                                <option value="Cancelled">Cancelled</option>
+                              </select>
+                            </div>
+                        {/* <Text
+                          label="Status"
                           name="status"
                           labelInputText={this.state.status}
                           changeHandler={this.changeHandler}
-                        />
-                        <Text
-                          label="price"
+                        /> */}
+                        <InputNumber
+                          label="Price"
                           name="price"
                           labelInputText={this.state.price}
                           changeHandler={this.changeHandler}
                         />
                         <input className="submitButton" type="submit" value="submit" onClick={() => this.addItem()} />
+                      </div>
                       </div>
                     </div>
                 </Popup>
@@ -655,9 +712,9 @@ class Tes extends Component {
                   />
                   <i className="fa fa-search search-icon" />
                 </div>
-                <button className="btn btn-primary pull-right" disabled>
+                {/* <button className="btn btn-primary pull-right" disabled>
                   <i className="fa fa-eye fa-lg" /> View all Transaction{" "}
-                </button>
+                </button> */}
               </div>
             </BoxHeader>
 
