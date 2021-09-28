@@ -80,6 +80,8 @@ class Tes extends Component {
     super(props);
 
     this.state = {
+      totalAmount: 11107.99,
+      transactions: 5,
       modal: false,
       id: 8555,
       date: "20/02/2021",
@@ -243,6 +245,8 @@ class Tes extends Component {
     console.log(elements)
     this.setState({
       id : id+1,
+      transactions: this.state.transactions+1,
+      totalAmount: this.state.totalAmount + price,
       dataTable: {
         header: tempHeaders,
         body: elements
@@ -404,12 +408,12 @@ class Tes extends Component {
         {
           iconClassname: "fa fa-hand-o-up emerald-bg",
           headline: "Hedges",
-          value: 5,
+          value: this.state.transactions,
         },
         {
           iconClassname: "fa fa-money green-bg",
           headline: "Total Amount",
-          value: "8400",
+          value: this.state.totalAmount,
           symbol: "&#36;",
         },
         {
@@ -515,7 +519,6 @@ class Tes extends Component {
     return (
       <div>
         <Header title="Dashboard" />
-        
         {/* <div>
             <button className="btn btn-primary dark-theme-switch float-right" style={{padding: "1px", float: "center"}}
             onClick={this.onThemeSwitch.bind(this)}>Dark Theme </button>
@@ -555,7 +558,7 @@ class Tes extends Component {
                 <a href="https://www.dailyfx.com/forex/fundamental/forecast/weekly/eur/2021/09/26/Euro-Forecast-Limited-EURUSD-Bounce-Could-Follow-German-Election-Results.html" class="news">NEWS </a>
                 </div>
                 <div class="l-news__content__text p-news__content__text">
-                EUR/USD Bounce Could Follow German Election Results
+                  EUR/USD Bounce Could Follow German Election Results
                 </div>
               </li>
               <li class="l-news__content p-news__content">
@@ -563,10 +566,10 @@ class Tes extends Component {
                   2021.09.28
                 </div>
                 <div class="l-news__content__label p-news__content__label">
-                <a href="#" class="news">NEWS </a>
+                <a href="https://economictimes.indiatimes.com/tech/startups/reliance-eyes-stake-in-glance-inmobi-in-a-300-million-deal/articleshow/86556867.cms" class="news">NEWS </a>
                 </div>
                 <div class="l-news__content__text p-news__content__text">
-                  US Govt Changes its policies
+                Reliance eyes $300 mn stake in Glance InMobi
                 </div>
               </li>
               <li class="l-news__content p-news__content">
@@ -574,10 +577,10 @@ class Tes extends Component {
                   2021.09.28
                 </div>
                 <div class="l-news__content__label p-news__content__label">
-                <a href="#" class="news">NEWS </a>
+                <a href="https://economictimes.indiatimes.com/news/international/business/evergrande-and-chinas-energy-crisis-are-two-sides-of-one-coin/articleshow/86549276.cms" class="news">NEWS </a>
                 </div>
                 <div class="l-news__content__text p-news__content__text">
-                  USA Supports Israel Economic Trades
+                Evergrande & China’s energy 2 sides of same coin
                 </div>
               </li>
             </ul>

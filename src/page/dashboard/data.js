@@ -1,5 +1,5 @@
 var data = [
-  { date: new Date(2021, 9, 20), dollar: 74.17, euro: 86.6 },
+  { date: new Date(2021, 9, 20), dollar: 74.17, euro: 86.60 },
   { date: new Date(2021, 9, 21), dollar: 74.22, euro: 86.51 },
   { date: new Date(2021, 9, 22), dollar: 74.86, euro: 86.29 },
   { date: new Date(2021, 9, 23), dollar: 74.79, euro: 86.89 },
@@ -8,8 +8,8 @@ var data = [
   { date: new Date(2021, 9, 26), dollar: 74.92, euro: 87.23 },
   { date: new Date(2021, 9, 27), dollar: 73.87, euro: 87.32 },
   { date: new Date(2021, 9, 28), dollar: 73.91, euro: 87.29 },
-  { date: new Date(2021, 9, 29), dollar: 73.4, euro: 86.28 },
-  { date: new Date(2021, 9, 30), dollar: 73.77, euro: 86.6 },
+  { date: new Date(2021, 9, 29), dollar: 73.40, euro: 86.28 },
+  { date: new Date(2021, 9, 30), dollar: 73.77, euro: 86.60 },
   { date: new Date(2021, 10, 1), dollar: 73.56, euro: 86.38 },
   { date: new Date(2021, 10, 2), dollar: 73.59, euro: 86.42 },
   { date: new Date(2021, 10, 3), dollar: 74.58, euro: 86.35 },
